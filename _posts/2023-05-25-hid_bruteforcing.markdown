@@ -4,47 +4,31 @@ title:  "Brutefocing Phones Using HID Devices"
 ---
 
 # Preface
-So my aunt recently died and left behind a perfectly good Samsung Galaxy S7 FE tablet. Unfortunatly (or fortunatly for you the interested reader) we did not know the password for the device which left us with one option: Factory Reset.
+So my aunt recently died and left behind a perfectly good Samsung Galaxy S7 FE tablet. Unfortunately (or fortunately for you the interested reader) we did not know the password for the device which left us with one option: Factory Reset.
 
 Unfortunatly all modern Android devices employ a feature Google calls **FRP** (Factory Reset Protection) which requires you to either:
 - Enter the correct PIN / the correct Pattern
 - or sign in with the connected Google Account.
 
-Unfortunatly neither of those where available to me so I had to find anoter solution:
+Unfortunatly neither of those where available to me so I had to find another solution:
 
 ### The Easy Way
 Before going into the main topic of this blog post I want to point out that there are much easier ways to perform what I did. There are still many different FRP bypasses available and you might find a working one if you google a while.
-For this specific device and many others Samsung was nice enough to add a small backdoor in their baseband with can be used to enable adb and use it to uninstall the app responsble for FRP. The flow goes something like this:
+For this specific device and many others Samsung was nice enough to add a small backdoor in their baseband with can be used to enable adb and use it to uninstall the app responsible for FRP. The flow goes something like this:
 - Open the Dialer (though some talkback trickery)
-- enter `*#0*#` in the dialer to open the Samung debug menu which connects the phones modem in serial mode to a USB connected computer
-- use the AT commands to communicate with the modem and enable usb debugging (modem version depended, the following commands did not work for my device)
-  ```
-  AT+KSTRINGB=0,3
-  AT+DUMPCTRL=1,0
-  AT+DEBUGLVC=0,5
-  AT+SWATD=0
-  AT+ACTIVATE=0,0,0
-  AT+SWATD=1
-  AT+DEBUGLVC=0,5
-  ```
-- we are now able this script that disables FRP by "finishing" the phone setup
-```
-settings put global setup_wizard_has_run 1
-settings put secure user_setup_complete 1
-content insert --uri content://settings/secure --bind name:s:DEVICE_PROVISIONED --bind value:i:1
-content insert --uri content://settings/secure --bind name:s:user_setup_complete --bind value:i:1
-content insert --uri content://settings/secure --bind name:s:INSTALL_NON_MARKET_APPS --bind value:i:1
-am start -c android.intent.category.HOME -a android.intent.action.MAIN
-# Wait 5 sec
-am start -n com.android.settings/com.android.settings.Settings
-# Wait 5 sec
-reboot
-```
+- enter `*#0*#` in the Dialer to open the Samsung debug menu which connects the phones modem in serial mode to a USB connected computer
+- use specific AT commands to communicate with the modem and enable usb debugging
+- we can then use the shell to finish the setup manually (any bypass FRP)
 
-These snippsts have been taken from the riskeco.com blog post: [https://blog-cyber.riskeco.com/en/analysis-of-samsung-frp-bypass/](https://blog-cyber.riskeco.com/en/analysis-of-samsung-frp-bypass/)
+If you want to learn more out this I recommend this riskeco.com blog post: [https://blog-cyber.riskeco.com/en/analysis-of-samsung-frp-bypass/](https://blog-cyber.riskeco.com/en/analysis-of-samsung-frp-bypass/). Note that for the Tablet in question you might need another AT code  then the one described in this blog
+
+# Theory of Human Interface Devices
+Human Interface Devices (HID) are a standard that devices can follow to communicate with your operating system to exchange information.
+Without going too deep into [theory](https://usb.org/sites/default/files/hut1_4.pdf) the hid protocol allows the OS to interpret inputs from US the user.
+Among others, the USB protocol is normally implemented by mice, keyboards or similar input devices. Luckely the Linux kernel also supplies the open to emulate such a device using the **HID Gadget Driver** [https://www.kernel.org/doc/html/latest/usb/gadget_hid.html](https://www.kernel.org/doc/html/latest/usb/gadget_hid.html)
 
 
-# Theory of hid input devices
+Once enabled this makes the `/dev/hidg0` device available.
 
 # Requirements for android / Linux Kernel
 
