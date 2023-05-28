@@ -71,7 +71,7 @@ Which is available here: (https://github.com/0xE0-rng/AndroidPatternLock/tree/50
 - a backup and resume feature to pause the bruteforcing
 - auto backup of the current progress
 
-## Challenges
+## Challenges and Known Issues
 When writing PatternBash I came across a couple challenges which I will describe in the following.
 
 ### Skipping Inputs
@@ -79,6 +79,8 @@ I have realized that sometimes the device skips over certain HID inputs which th
 
 ### Mouse positioning
 There is actually no way to know where the mouse is currently located on the device. My solution to work around this is to just move the mouse to the very top left and call this location (0,0) from there on out we can access the different locations on the screen using coordinates.
+
+### Pathfinding
 
 ### Random Phone Resets
 some phones reboot at a certain point
