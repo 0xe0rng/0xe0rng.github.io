@@ -34,6 +34,27 @@ minimal_mistakes_skin: dark
 plugins:
   - jekyll-feed
 
+
+author:
+  name     : "0xE-rng"
+  avatar   : "/assets/images/bio-photo.jpg"
+  bio      : "Another Security Enthusiast with too many interests"
+  location : "currently around London, UK"
+  links:
+  - label: "Made Mistakes"
+    icon: "fas fa-fw fa-link"
+    url: "https://mademistakes.com"
+  - label: "Twitter"
+    icon: "fab fa-fw fa-twitter-square"
+    url: "https://twitter.com/mmistakes"
+  - label: "GitHub"
+    icon: "fab fa-fw fa-github"
+    url: "https://github.com/mmistakes"
+  - label: "Instagram"
+    icon: "fab fa-fw fa-instagram"
+    url: "https://instagram.com/mmistakes"
+
+#
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
