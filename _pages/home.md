@@ -1,4 +1,4 @@
 ---
 layout: home
 ---
-Welcome Home :)
+Welcome Home
