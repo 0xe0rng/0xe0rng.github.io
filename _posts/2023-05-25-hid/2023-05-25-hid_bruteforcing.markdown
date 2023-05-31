@@ -1,12 +1,12 @@
 ---
 layout: single
 toc: true
+toc_label: false
 toc_sticky: true
 title:  "Brutefocing Android Patterns Using HID Devices"
 ---
 
-## Preface
-So my aunt recently died and left behind a perfectly good "Samsung Galaxy S7 FE" tablet. Unfortunately (or fortunately for you the interested reader) we did not know the password for the device which left us with one option: Factory Reset.
+Unfortunately my aunt died recently and left behind a perfectly good **Samsung Galaxy S7 FE** tablet. Unfortunately (or fortunately for you the interested reader) we did not know the password for the device which left us with one option: Factory Reset.
 
 Sadly all modern Android devices employ a feature Google calls **FRP** (Factory Reset Protection) which requires us to either:
 - Enter the correct PIN / the correct Pattern
@@ -14,7 +14,7 @@ Sadly all modern Android devices employ a feature Google calls **FRP** (Factory 
 
 Neither of those where available to me so I had to find another solution:
 
-### The Easy Way
+## The Easy Way
 Before going into the main topic of this blog post I want to point out that there are much easier ways to perform what I did. There are still many different FRP bypasses available and we might find a working one if searching for a while.
 For this specific device and many others Samsung was nice enough to add a small backdoor in their baseband with can be used to enable adb and use it to uninstall the app responsible for FRP. The flow goes something like this:
 - Open the Dialer (e.g. though some talkback trickery)
@@ -57,8 +57,7 @@ echo -ne \\x00\\x64\\x00 > /dev/hidg0
 We should should now see the mouse move by 10 units in the x direction on the host device.
 
 ## Introducing PatternBash
-### The Attack, Introducing the existing brute force solutions
-So what can we do with this? Inspired by the **Android Pin Brutefocing Project**[^pin-bruteforce-repo] I have created a bash script that will bruteforce the pattern lock or an android device.
+So what can we do with this knowlage? Inspired by the **Android Pin Brutefocing Project**[^pin-bruteforce-repo] I have created a bash script that will bruteforce the pattern lock or an android device.
 
 The problem with bruteforcing is the timeout between failed attempts. In our case we can actually factory reset the device one more which will reset the timeout every time we do.
 
@@ -145,7 +144,7 @@ I will most likely not continue development on this and will not give any suppor
 
 
 ### Future Work
-Raspian acually also has ConfigFS support, so my script can be run on a raspberry too. This same rasperry can be used to drive stepper motors that automatically perform a factory reset on the device. I have experimented on this but did not create a running prototype. Maybe in another blogpost...
+Raspian actually also has **ConfigFS** support, so my script can be run on a raspberry P . This same rasperry can be used to drive stepper motors that automatically perform a factory reset on the device. I have experimented on this but did not create a running prototype. Maybe in another blogpost...
 One sulution to receive feedback from the device (e.g. after the bruteforcing was complete) would be to just film the device / create a pictue after each attept. A simple NN algorithm would be enoughh to decide on the current state of the device.
 
 
