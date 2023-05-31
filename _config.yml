@@ -70,7 +70,6 @@ baidu_site_verification  :
 
 twitter:
   username: 0xE-rng
-  username               :
 # facebook:
 #   username               :
 #   app_id                 :
@@ -97,6 +96,9 @@ author:
   - label: "GitHub"
     icon: "fab fa-fw fa-github"
     url: "https://github.com/0xE0-rng"
+  - label: "Mastadon"
+    icon: "fab fa-fw fa-brands fa-mastadon"
+    url: "https://infosec.exchange/0xE0_rng"
   # - label: "Instagram"
   #   icon: "fab fa-fw fa-instagram"
   #   url: "https://instagram.com/mmistakes"
